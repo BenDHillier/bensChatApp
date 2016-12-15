@@ -12,18 +12,20 @@ module.exports = function(io, app){
             io.to(friendID).emit('chat message', session.user+": "+msg, session.user);
             //io.to(socket.id).emit('chat message', session.user+": "+msg, session.user);
             //update chatLog for user and friend
-            chatLogs.findOne({users: [session.user, session.friend]}, function(err, data){
+            chatLogs.findOne({user: session.user, friend: session.friend}, function(err, data){
                 data.chatLog.push(session.user+ ": "+ msg);
-                chatLogs.update({users: [session.user, session.friend]}, {chatLog: data.chatLog}, function(err){
+                chatLogs.update({user: session.user, friend: session.friend}, {chatLog: data.chatLog}, function(err){
                 });
-                chatLogs.update({users: [session.friend, session.user]}, {chatLog: data.chatLog}, function(err){
+                chatLogs.update({user: session.friend, friend: session.user}, {chatLog: data.chatLog}, function(err){
                 });
             });
         });
         socket.on('clear', function(){
-            update(session.user, '', true, io);
-        });
+            chatLogs.findOne({user: session.user, friend: session.friend}, function(err, data){
 
+            });
+            update(session.user, session.friend, '', true, io);
+        });
         socket.on('getFriend', function(sender, msg){
             console.log('sender:', sender, 'msg:', msg);
             let data = {
@@ -40,7 +42,7 @@ module.exports = function(io, app){
             res.redirect('/login');
             return;
         }
-        let data = chatLogs.findOne({users: [req.session.user, req.session.friend]}, function(err, data) {
+        let data = chatLogs.findOne({user: req.session.user, friend: req.session.friend}, function(err, data) {
             if(data){
             res.render('index', data);
         } else {
@@ -58,16 +60,16 @@ module.exports = function(io, app){
     })
 };
 
-function update(user, msg, clear, io){
+function update(user, friend, msg, clear, io){
     chatLogs.findOne({'user': user}, function(err, data){
         if(clear){
             io.emit('clear')
-            chatLogs.update({'user': user}, {chatLog: []}, function(err){
+            chatLogs.update({'user': user, friend: friend}, {chatLog: []}, function(err){
                 console.log('cleared log');
             });
         } else {
             data.chatLog.push(msg);
-            chatLogs.update({'user': user}, {chatLog: data.chatLog}, function(err){
+            chatLogs.update({'user': user, friend: friend}, {chatLog: data.chatLog}, function(err){
                 console.log('updated log');
             });
         }

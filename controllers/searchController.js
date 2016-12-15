@@ -1,9 +1,13 @@
 let models = require('../models/models');
+let friendsController = require('../controllers/friendsController');
 let chatLogs = models.chatLogs;
 let accounts = models.accounts;
 module.exports = function(app){
     app.get('/search', function(req, res){
-        res.render('search');
+        friendsController.getFriends(req.session.user, function(friendsList){
+            res.render('search', {friendsList});
+        })
+
     });
 
     app.post('/search', function(req, res){
@@ -11,14 +15,16 @@ module.exports = function(app){
         let searchQuery = req.body.searchQuery;
         accounts.findOne({username: searchQuery}, function(err, account) {
             if(account) {
-                chatLogs.findOne({users: [user, searchQuery]}, function(err, data){
+                chatLogs.findOne({user: user, friend: searchQuery}, function(err, data){
                     if(!data) {
                         Object.create(chatLogs({
-                            users: [req.session.user, account.username],
+                            user: req.session.user,
+                            friend: account.username,
                             chatLog: []
                         })).save();
                         Object.create(chatLogs({
-                            users: [account.username, req.session.user],
+                            user: account.username,
+                            friend: req.session.user,
                             chatLog: []
                         })).save();
                     }
@@ -34,7 +40,7 @@ module.exports = function(app){
 };
 
 function chatLogExists(user, friend){
-    chatLogs.findOne({users: [user, friend]}, function(err, data){
+    chatLogs.findOne({user: user, friend: friend}, function(err, data){
         if(data) return true;
         return false;
     });
