@@ -1,0 +1,15 @@
+{
+  "name": "myChatApp",
+  "version": "1.0.0",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.5.5",
+    "express": "^4.14.0",
+    "express-session": "^1.14.2",
+    "mongoose": "^4.7.2",
+    "nodemon": "^1.11.0",
+    "passport": "^0.3.2",
+    "socket.io": "^1.7.1",
+    "socket.io-express-session": "^0.1.3"
+  }
+}

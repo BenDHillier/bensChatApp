@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>signup</title>
+</head>
+<body>
+    <form method='POST', action='/signup'>
+        <% if(error) %>
+        <p><%=error %></p>
+        <p>username</p>
+        <input name='username' type='textfield'/>
+        <p>password</p>
+        <input name='password' type='textfield'/>
+        <button type='submit'>signup</button>
+    </form>
+    <form method='GET', action='/login'>
+        <button type='submit'>login</button>
+    </form>
+
+</body>
+</html>
