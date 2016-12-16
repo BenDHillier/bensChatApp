@@ -8,9 +8,19 @@
         <input name=searchQuery type='textfield' />
         <button type='submit'>Search</button>
     </form>
+    <h3>Friends</h3>
     <ul>
-        <% friendsList.forEach((item) => { %>
+        <% if(friendsList) friendsList.forEach((item) => { %>
             <li><%= item %></li>
+        <% }); %>
+    </ul>
+    <h3>Friend Requests</h3>
+    <ul>
+        <% if(friendRequests) friendRequests.forEach((item) => { %>
+            <form method='POST', action='acceptRequest'>
+                <li><%= item %></li>
+                <button name='friend' value=<%= item %> type="submit">Accept</button>
+            </form>
         <% }); %>
     </ul>
 </body>

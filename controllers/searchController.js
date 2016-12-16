@@ -4,8 +4,13 @@ let chatLogs = models.chatLogs;
 let accounts = models.accounts;
 module.exports = function(app){
     app.get('/search', function(req, res){
+        if(!req.session.user)
+            res.redirect('/login');
         friendsController.getFriends(req.session.user, function(friendsList){
-            res.render('search', {friendsList});
+            friendsController.getFriendRequests(req.session.user, (friendRequests)=>{
+                res.render('search', {friendsList, friendRequests});
+            })
+
         })
 
     });
@@ -14,6 +19,16 @@ module.exports = function(app){
         let user = req.session.user;
         let searchQuery = req.body.searchQuery;
         accounts.findOne({username: searchQuery}, function(err, account) {
+            if(account){
+                friendsController.sendRequestTo(searchQuery, user, ()=>{
+                    friendsController.getFriends(req.session.user, function(friendsList){
+                        friendsController.getFriendRequests(req.session.user, (friendRequests)=>{
+                            res.render('search', {friendsList, friendRequests});
+                        })
+                    })
+                });
+            }
+            /*
             if(account) {
                 chatLogs.findOne({user: user, friend: searchQuery}, function(err, data){
                     if(!data) {
@@ -30,11 +45,22 @@ module.exports = function(app){
                     }
                     req.session.friend = account.username;
                     res.redirect('/chat');
+
+
+                    res.render('search', {friendsList});
                 });
 
             } else {
                 res.send('User does not exist');
             }
+            */
+        })
+    });
+
+    app.post('/acceptRequest', function(req, res){
+        console.log(req.body.friend);
+        friendsController.acceptRequest(req.session.user, req.body.friend, function(){
+            res.redirect('/search');
         })
     });
 };

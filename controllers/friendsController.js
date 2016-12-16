@@ -12,11 +12,26 @@ module.exports = {
         });
     },
 
-    add: function(username, friend, callback){
+    getFriendRequests: function(username, callback) {
         accounts.findOne({username}, function(err, data){
-            let friendsList;
+            let friendRequests;
+            if(data)
+                 friendRequests = data.friendRequests;
+            else
+                console.log(username, 'does not exist');
+            callback(friendRequests);
+        });
+    },
+
+    acceptRequest: function(username, friend, callback){
+        accounts.findOne({username}, function(err, data){
             if(data){
-                friendsList = data.friendsList;
+                let friendsList = data.friendsList;
+                let friendRequests = data.friendRequests;
+
+                friendRequests = friendRequests.filter((item)=>{
+                    return item !== friend;
+                });
                 //prevent duplicates
                 let duplicate = false;
                 friendsList.forEach(function(item){
@@ -25,11 +40,33 @@ module.exports = {
                 });
                 if(!duplicate)
                     friendsList.push(friend);
-                accounts.update({username}, {friendsList}, function(err){
+                accounts.update({username}, {friendsList, friendRequests}, function(err){
                     callback();
                 });
             } else {
                 console.log('couldnt find user');
+            }
+        });
+    },
+
+    sendRequestTo: function(username, sender, callback){
+        accounts.findOne({username}, function(err, data){
+            let friendRequests;
+            if(data){
+                friendRequests = data.friendRequests;
+                //prevent duplicates
+                let duplicate = false;
+                friendRequests.forEach(function(item){
+                    if(item === sender)
+                        duplicate = true;
+                });
+                if(!duplicate)
+                    friendRequests.push(sender);
+                accounts.update({username}, {friendRequests}, function(err){
+                    callback();
+                });
+            } else {
+                console.log('couldnt find user', friend);
             }
         });
     }

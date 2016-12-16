@@ -8,7 +8,8 @@ let chatSchema = Object.create(mongoose.Schema({
 let accountSchema = Object.create(mongoose.Schema({
     username: String,
     password: String,
-    friendsList: Array
+    friendsList: Array,
+    friendRequests: Array
 }));
 
 let chatLogs = mongoose.model('chatLogs', chatSchema);

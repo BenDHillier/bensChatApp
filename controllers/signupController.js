@@ -12,7 +12,8 @@ module.exports = function(app){
                 Object.create(accounts({
                     username: req.body.username,
                     password: req.body.password,
-                    friendsList: []
+                    friendsList: [],
+                    friendRequests: []
                 })).save();
                 req.session.user = req.body.username;
                 res.redirect('/');
