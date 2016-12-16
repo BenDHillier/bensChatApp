@@ -2,15 +2,15 @@ let models = require('../models/models');
 let friendsController = require('../controllers/friendsController');
 let chatLogs = models.chatLogs;
 let accounts = models.accounts;
-module.exports = function(app){
+module.exports = function(app, io){
+
     app.get('/search', function(req, res){
         if(!req.session.user)
             res.redirect('/login');
         friendsController.getFriends(req.session.user, function(friendsList){
             friendsController.getFriendRequests(req.session.user, (friendRequests)=>{
-                res.render('search', {friendsList, friendRequests});
+                res.render('search', {friendsList, friendRequests, userNotFound:false});
             })
-
         })
 
     });
@@ -23,10 +23,16 @@ module.exports = function(app){
                 friendsController.sendRequestTo(searchQuery, user, ()=>{
                     friendsController.getFriends(req.session.user, function(friendsList){
                         friendsController.getFriendRequests(req.session.user, (friendRequests)=>{
-                            res.render('search', {friendsList, friendRequests});
+                            res.render('search', {friendsList, friendRequests, userNotFound:null});
                         })
                     })
                 });
+            } else {
+                friendsController.getFriends(req.session.user, function(friendsList){
+                    friendsController.getFriendRequests(req.session.user, (friendRequests)=>{
+                        res.render('search', {friendsList, friendRequests, userNotFound: true});
+                    })
+                })
             }
             /*
             if(account) {
@@ -61,7 +67,7 @@ module.exports = function(app){
         console.log(req.body.friend);
         friendsController.acceptRequest(req.session.user, req.body.friend, function(){
             res.redirect('/search');
-        })
+        });
     });
 };
 

@@ -3,7 +3,7 @@ let chatLogs = model.chatLogs;
 let connections = [];
 
 module.exports = function(io, app){
-
+    /*
     io.on('connection', function(socket){
         let session = socket.handshake.session;
         addConnection(session.user, socket.id);
@@ -36,8 +36,25 @@ module.exports = function(io, app){
             io.to(socket.id).emit('getFriend', data);
         })
     });
+    */
 
     app.get('/chat', function(req, res){
+        if(req.session.user === null) {
+            res.redirect('/login');
+            return;
+        } else if(req.session.friend === null)
+            res.redi
+        let data = chatLogs.findOne({user: req.session.user, friend: req.session.friend}, function(err, data) {
+            if(data){
+            res.render('index', data);
+            } else {
+                res.send('chatlog not found');
+            }
+        })
+    });
+
+    app.post('/chat', function(req, res){
+        req.session.friend = req.body.friend;
         if(req.session.user == null) {
             res.redirect('/login');
             return;
@@ -45,9 +62,9 @@ module.exports = function(io, app){
         let data = chatLogs.findOne({user: req.session.user, friend: req.session.friend}, function(err, data) {
             if(data){
             res.render('index', data);
-        } else {
-            res.send('chatlog not found');
-        }
+            } else {
+                res.send('chatlog not found');
+            }
         })
     });
 
@@ -83,7 +100,7 @@ function addConnection(user, id){
             if(item.user === user) result = false;
         })
         if(result)
-            connections.push({user: user, id: id});
+            connections.push({user, id});
             console.log(connections);
     }
 }

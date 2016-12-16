@@ -24,29 +24,8 @@ module.exports = {
     },
 
     acceptRequest: function(username, friend, callback){
-        accounts.findOne({username}, function(err, data){
-            if(data){
-                let friendsList = data.friendsList;
-                let friendRequests = data.friendRequests;
-
-                friendRequests = friendRequests.filter((item)=>{
-                    return item !== friend;
-                });
-                //prevent duplicates
-                let duplicate = false;
-                friendsList.forEach(function(item){
-                    if(item === friend)
-                        duplicate = true;
-                });
-                if(!duplicate)
-                    friendsList.push(friend);
-                accounts.update({username}, {friendsList, friendRequests}, function(err){
-                    callback();
-                });
-            } else {
-                console.log('couldnt find user');
-            }
-        });
+        addFriend(username, friend, ()=>0);
+        addFriend(friend, username, callback);
     },
 
     sendRequestTo: function(username, sender, callback){
@@ -71,3 +50,20 @@ module.exports = {
         });
     }
 };
+
+function addFriend(username, friend, next){
+    accounts.findOne({username}, function(err, data){
+        if(data){
+            let friendsList = data.friendsList;
+            let friendRequests = data.friendRequests;
+
+            friendRequests = friendRequests.filter(item => item !== friend);
+            //prevent duplicates
+            if(friendsList.indexOf(friend) === -1)
+                friendsList.push(friend);
+            accounts.update({username}, {friendsList, friendRequests}, function(err){
+                next();
+            });
+        }
+    });
+}

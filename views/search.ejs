@@ -8,10 +8,15 @@
         <input name=searchQuery type='textfield' />
         <button type='submit'>Search</button>
     </form>
+    <% if(userNotFound) {%>
+        <p>User Not Found</p>
+        <% } %>
     <h3>Friends</h3>
     <ul>
         <% if(friendsList) friendsList.forEach((item) => { %>
-            <li><%= item %></li>
+            <form method='POST' action='/chat'>
+                <button type='submit' href='/chat' name='friend' value=<%= item %>><%= item %></a>
+            </form>
         <% }); %>
     </ul>
     <h3>Friend Requests</h3>
