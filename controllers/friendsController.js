@@ -1,5 +1,6 @@
 let model = require('../models/models');
 let accounts = model.accounts;
+let chatLogs = model.chatLogs;
 module.exports = {
     getFriends: function(username, callback) {
         accounts.findOne({username}, function(err, data){
@@ -53,6 +54,11 @@ module.exports = {
 
 function addFriend(username, friend, next){
     accounts.findOne({username}, function(err, data){
+        Object.create(chatLogs({
+            user: username,
+            friend,
+            chatLog: []
+        })).save();
         if(data){
             let friendsList = data.friendsList;
             let friendRequests = data.friendRequests;
