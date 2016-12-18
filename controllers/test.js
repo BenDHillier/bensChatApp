@@ -5,14 +5,19 @@ module.exports = function(io, socket){
     let session = socket.handshake.session;
     addConnection(session.user, socket.id);
     socket.on('chat message', function(msg){
-        let friendID = getId(session.friend);
-        io.to(friendID).emit('chat message', session.user+": "+msg, session.user);
+        let friend = session.friend;
+        let user = session.user;
+        let friendID = getId(friend);
+        io.to(friendID).emit('chat message', user+": "+msg, user);
         //update chatLog for user and friend
-        chatLogs.findOne({user: session.user, friend: session.friend}, function(err, data){
-            data.chatLog.push(session.user+ ": "+ msg);
-            chatLogs.update({user: session.user, friend: session.friend}, {chatLog: data.chatLog}, function(err){
+        chatLogs.findOne({user, friend}, function(err, data){
+            data.chatLog.push(user+ ": "+ msg);
+            chatLogs.update({user, friend}, {chatLog: data.chatLog}, function(err){
             });
-            chatLogs.update({user: session.friend, friend: session.user}, {chatLog: data.chatLog}, function(err){
+        });
+        chatLogs.findOne({user: friend, friend: user}, function(err, data){
+            data.chatLog.push(friend+ ": "+ msg);
+            chatLogs.update({user: friend, friend: user}, {chatLog: data.chatLog}, function(err){
             });
         });
     });
