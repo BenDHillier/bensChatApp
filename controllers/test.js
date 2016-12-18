@@ -16,7 +16,7 @@ module.exports = function(io, socket){
             });
         });
         chatLogs.findOne({user: friend, friend: user}, function(err, data){
-            data.chatLog.push(friend+ ": "+ msg);
+            data.chatLog.push(user+ ": "+ msg);
             chatLogs.update({user: friend, friend: user}, {chatLog: data.chatLog}, function(err){
             });
         });
