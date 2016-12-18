@@ -11,11 +11,19 @@ let accountSchema = Object.create(mongoose.Schema({
     friendsList: Array,
     friendRequests: Array
 }));
+let profileSchema = Object.create(mongoose.Schema({
+    username: String,
+    picture: String,
+    bio: String
+}));
+
 
 let chatLogs = mongoose.model('chatLogs', chatSchema);
 let accounts = mongoose.model('accounts', accountSchema);
+let profiles = mongoose.model('profiles', profileSchema);
 
 module.exports = {
-    chatLogs: chatLogs,
-    accounts: accounts
+    chatLogs,
+    accounts,
+    profiles
 }
