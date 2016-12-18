@@ -6,6 +6,7 @@ socket.on('openConversation', (data)=>{
     data.chatLog.forEach(function(msg) {
         $('#messages').append($('<li>').text(msg));
     });
+    $("#messages").scrollTop($("#messages")[0].scrollHeight);
 });
 
 $('.friend').click(function() {

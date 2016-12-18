@@ -7,6 +7,12 @@ module.exports = function(app){
     });
 
     app.post('/login', function(req, res){
+        if(req.body.logout){
+            req.session.user = null;
+            req.session.friend = null;
+            res.render('login', {error: ''});
+            return;
+        }
         accounts.findOne({username: req.body.user}, function(err, data){
             if(data && data.password === req.body.password){
                 req.session.user = req.body.user;

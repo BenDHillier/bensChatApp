@@ -4,6 +4,7 @@
     <title>signup</title>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
 </head>
 <body>
     <form method='POST', action='/search'>
@@ -14,7 +15,7 @@
         <p>User Not Found</p>
         <% } %>
     <h3>Friends</h3>
-    <ul>
+    <ul id='friendsList'>
         <% if(friendsList) friendsList.forEach((item) => { %>
             <button class='friend' value=<%= item %>><%= item %></button>
 
@@ -22,7 +23,7 @@
         <% }); %>
     </ul>
     <h3>Friend Requests</h3>
-    <ul>
+    <ul id='friendRequests'>
         <% if(friendRequests) friendRequests.forEach((item) => { %>
             <form method='POST', action='acceptRequest'>
                 <li><%= item %></li>
@@ -42,7 +43,12 @@
             <button type="submit">Clear</button>
         </form>
     </div>
+    <form id='logout' method="POST" action='/login'>
+        <button type='submit' name='logout' value=true>LOGOUT</button>
+    </form>
+
     <script src='scripts/openConversation.js'></script>
     <script src='scripts/index.js'></script>
+    <script src='scripts/logout.js'></script>
 </body>
 </html>

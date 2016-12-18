@@ -10,6 +10,7 @@ let ios = require('socket.io-express-session');
 
 app.set('view engine', 'ejs');
 app.use('/scripts', express.static('scripts'));
+app.use('/styles', express.static('styles'));
 app.use(bodyParser.urlencoded({ extended: false }));
 let session = expSession({
     resave: false,
