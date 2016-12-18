@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>signup</title>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
 </head>
 <body>
     <form method='POST', action='/search'>
@@ -14,9 +16,9 @@
     <h3>Friends</h3>
     <ul>
         <% if(friendsList) friendsList.forEach((item) => { %>
-            <form method='POST' action='/chat'>
-                <button type='submit' href='/chat' name='friend' value=<%= item %>><%= item %></a>
-            </form>
+            <button class='friend' value=<%= item %>><%= item %></button>
+
+
         <% }); %>
     </ul>
     <h3>Friend Requests</h3>
@@ -28,5 +30,16 @@
             </form>
         <% }); %>
     </ul>
+    <div>
+        <ul id='messages'>
+
+        </ul>
+        <form id="sendMessage">
+            <input id='m' type="textfield" />
+            <button type="submit">Press</button>
+        </form>
+    </div>
+    <script src='scripts/openConversation.js'></script>
+    <script src='scripts/index.js'></script>
 </body>
 </html>

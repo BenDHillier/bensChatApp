@@ -7,7 +7,7 @@
 */
 
 
-var socket = io();
+//var socket = io();
 $('#sendMessage').submit(function(){
     let msg = $('#m').val();
     socket.emit('chat message', msg);

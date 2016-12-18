@@ -44,7 +44,7 @@ module.exports = function(io, app){
             return;
         } else if(req.session.friend === null)
             res.redi
-        let data = chatLogs.findOne({user: req.session.user, friend: req.session.friend}, function(err, data) {
+        chatLogs.findOne({user: req.session.user, friend: req.session.friend}, function(err, data) {
             if(data){
             res.render('index', data);
             } else {
@@ -78,15 +78,15 @@ module.exports = function(io, app){
 };
 
 function update(user, friend, msg, clear, io){
-    chatLogs.findOne({'user': user}, function(err, data){
+    chatLogs.findOne({user}, function(err, data){
         if(clear){
             io.emit('clear')
-            chatLogs.update({'user': user, friend: friend}, {chatLog: []}, function(err){
+            chatLogs.update({user, friend}, {chatLog: []}, function(err){
                 console.log('cleared log');
             });
         } else {
             data.chatLog.push(msg);
-            chatLogs.update({'user': user, friend: friend}, {chatLog: data.chatLog}, function(err){
+            chatLogs.update({user, friend}, {chatLog: data.chatLog}, function(err){
                 console.log('updated log');
             });
         }

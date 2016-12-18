@@ -5,8 +5,10 @@ let accounts = models.accounts;
 module.exports = function(app, io){
 
     app.get('/search', function(req, res){
-        if(!req.session.user)
+        if(!req.session.user) {
             res.redirect('/login');
+            return;
+        }
         friendsController.getFriends(req.session.user, function(friendsList){
             friendsController.getFriendRequests(req.session.user, (friendRequests)=>{
                 res.render('search', {friendsList, friendRequests, userNotFound:false});
