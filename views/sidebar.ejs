@@ -1,32 +1,31 @@
 <!-- Search Bar -->
-<form id='searchBar'>
-    <input id='searchQuery' name=searchQuery type='textfield' />
-    <button type='submit'>Search</button>
-</form>
-<% if(userNotFound) {%>
-    <p>User Not Found</p>
-    <% } %>
-<!-- Message Notifications  -->
-<h3>Messages</h3>
-<!-- Friend Requests  -->
-<h3>Friend Requests</h3>
-<ul id='friendRequests'>
-    <% if(friendRequests) friendRequests.forEach((item) => { %>
-        <form method='POST', action='acceptRequest'>
-            <li><%= item %></li>
-            <button name='friend' value=<%= item %> type="submit">Accept</button>
-        </form>
-    <% }); %>
-</ul>
-<!-- Friend List  -->
-<h3>Friends</h3>
-<ul id='friendsList'>
-    <% if(friendsList) friendsList.forEach((item) => { %>
-        <button class='friend' value=<%= item %>><%= item %></button>
-    <% }); %>
-</ul>
+<nav id='sidebar'>
+    <form id='searchBar'>
+        <input id='searchQuery' name=searchQuery type='textfield' />
+        <button type='submit'>Search</button>
+    </form>
+    <!-- Message Notifications  -->
+    <h3>Messages</h3>
+    <!-- Friend Requests  -->
+    <h3>Friend Requests</h3>
+    <ul id='friendRequests'>
+        <% if(friendRequests) friendRequests.forEach((item) => { %>
+            <form method='POST', action='acceptRequest'>
+                <li><%= item %></li>
+                <button name='friend' value=<%= item %> type="submit">Accept</button>
+            </form>
+        <% }); %>
+    </ul>
+    <!-- Friend List  -->
+    <h3>Friends</h3>
+    <ul id='friendsList'>
+        <% if(friendsList) friendsList.forEach((item) => { %>
+            <button class='friend' value=<%= item %>><%= item %></button>
+        <% }); %>
+    </ul>
 
-<!-- logout  -->
-<form id='logout' method="POST" action='/login'>
-    <button type='submit' name='logout' value=true>LOGOUT</button>
-</form>
+    <!-- logout  -->
+    <form id='logout' method="POST" action='/login'>
+        <button type='submit' name='logout' value=true>LOGOUT</button>
+    </form>
+</nav>

@@ -1,6 +1,7 @@
 let models = require('../models/models');
 let friendsController = require('../controllers/friendsController');
 let accounts = models.accounts;
+let profiles = models.profiles;
 
 
 module.exports = function(io, socket){
@@ -8,9 +9,14 @@ module.exports = function(io, socket){
     socket.on('search', (searchQuery)=>{
         accounts.findOne({username: searchQuery}, (err, data)=>{
             if(data){
-                friendsController.sendRequestTo(searchQuery, session.user, ()=>{
-                    io.to(socket.id).emit('search', true);
-                })
+                profiles.findOne({username: searchQuery}, (err, data)=>{
+                    if(!data){
+                        data = models.createProfile(searchQuery);
+                    }
+                    io.to(socket.id).emit('search', data);
+                });
+
+                //friendsController.sendRequestTo(searchQuery, session.user, ()=>{
             } else {
                     io.to(socket.id).emit('search', false);
             }

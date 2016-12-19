@@ -24,11 +24,16 @@ let profiles = mongoose.model('profiles', profileSchema);
 
 let defaultProfile = {
         username: 'Name',
-        picture: 'default.png',
+        picture: 'assets/profilePictures/default.png',
         bio: 'Bio goes here'
 };
 
-function createProfile(username, defaultProfile){
+function createProfile(username){
+    let defaultProfile = {
+            username: 'Name',
+            picture: 'assets/profilePictures/default.png',
+            bio: 'Bio goes here'
+    };
     let result = Object.create(defaultProfile);
     result.username = username;
     return result;
@@ -37,7 +42,7 @@ function createProfile(username, defaultProfile){
 function saveProfile(){
     Object.create(profiles({
         username: 'test',
-        picture: 'default.png',
+        picture: 'assets/profilePictures/default.png',
         bio: 'I made a bio'
     })).save();
 }
