@@ -22,8 +22,31 @@ let chatLogs = mongoose.model('chatLogs', chatSchema);
 let accounts = mongoose.model('accounts', accountSchema);
 let profiles = mongoose.model('profiles', profileSchema);
 
+let defaultProfile = {
+        username: 'Name',
+        picture: 'default.png',
+        bio: 'Bio goes here'
+};
+
+function createProfile(username, defaultProfile){
+    let result = Object.create(defaultProfile);
+    result.username = username;
+    return result;
+}
+
+function saveProfile(){
+    Object.create(profiles({
+        username: 'test',
+        picture: 'default.png',
+        bio: 'I made a bio'
+    })).save();
+}
+
 module.exports = {
     chatLogs,
     accounts,
-    profiles
+    profiles,
+    createProfile,
+    defaultProfile,
+    saveProfile
 }

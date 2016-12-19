@@ -6,22 +6,9 @@
 
 </head>
 <body>
-    <ul id='messages'>
-        <% chatLog.forEach(function(item){ %>
-            <li><%=item%></li>
-        <% }); %>
-    </ul>
-
-    <form id="sendMessage">
-        <input id='m' type="textfield" />
-        <button type="submit">Press</button>
-    </form>
-    <form id='clear'>
-        <button type="submit">Clear</button>
-    </form>
-    <form method='GET', action='search'>
-        <button type="submit">New Search</button>
-    </form>
-    <script src='scripts/index.js'></script>
+    <% include sidebar.ejs %>
+    <img src='assets/profilePictures/default.png' height=100px width="100px">
+    <h2><%= username %></h2>
+    <p><%= bio %></p>
 </body>
 </html>

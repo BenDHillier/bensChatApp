@@ -3,6 +3,29 @@ let chatLogs = model.chatLogs;
 let connections = [];
 
 module.exports = function(io, app){
+    app.get('/test', (req, res)=>{
+        if(!req.session.user){
+            res.redirect('/login');
+            return;
+        }
+        model.profiles.findOne({username: req.session.user}, (err, data)=>{
+            if(!data){
+                let profile = {
+                    username: 'Ben',
+                    picture: 'default.png',
+                    bio: 'hello'
+                };
+                res.render('index', model.createProfile('Ben', Object.assign(model.defaultProfile,
+                    {friendsList: null, friendRequests: null, userNotFound:false})
+                ));
+            } else {
+                console.log('found profile for ', req.session.user);
+                res.render('index', Object.assign(data,
+                    {friendsList: null, friendRequests: null, userNotFound:false}));
+            }
+        });
+
+    });
     /*
     io.on('connection', function(socket){
         let session = socket.handshake.session;
