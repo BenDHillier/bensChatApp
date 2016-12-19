@@ -13,4 +13,3 @@ $('.friend').click(function() {
     console.log(this.value);
     socket.emit('openConversation', this.value);
 });
-console.log($('.friend')[0].onclick);
