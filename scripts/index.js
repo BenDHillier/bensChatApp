@@ -35,11 +35,9 @@ socket.on('getFriend', function(data){
 });
 
 socket.on('clear', function() {
-    let myChild = $('#messages').children();
-    console.log(myChild.length);
-    for(i=0;i<myChild.length;i++){
+    Array.from($('#messages').children()).forEach(()=>{
         myChild[i].remove();
-    }
+    });
 })
 $('#clear').submit(function() {
     socket.emit('clear');

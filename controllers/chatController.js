@@ -9,7 +9,6 @@ module.exports = function(io, app){
             return;
         }
         model.profiles.findOne({username: req.session.user}, (err, data)=>{
-            console.log('in chat');
             if(!data){
                 res.render('index', Object.assign(model.createProfile('Ben', model.defaultProfile),
                     {friendsList: null, friendRequests: null, userNotFound:false}));

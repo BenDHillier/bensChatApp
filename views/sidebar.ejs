@@ -7,14 +7,11 @@
     <!-- Message Notifications  -->
     <h3>Messages</h3>
     <!-- Friend Requests  -->
-    <h3>Friend Requests</h3>
-    <ul id='friendRequests'>
-        <% if(friendRequests) friendRequests.forEach((item) => { %>
-            <form method='POST', action='acceptRequest'>
-                <li><%= item %></li>
-                <button name='friend' value=<%= item %> type="submit">Accept</button>
-            </form>
-        <% }); %>
+    <button id='friendRequests'>Friend Requests</button>
+    <ul id='requestsList'>
+        <li>
+            test
+        </li>
     </ul>
     <!-- Friend List  -->
     <h3>Friends</h3>
@@ -28,4 +25,7 @@
     <form id='logout' method="POST" action='/login'>
         <button type='submit' name='logout' value=true>LOGOUT</button>
     </form>
+    <!-- openConversation must be first script as it declares socket = io() -->
+    <script src='scripts/openConversation.js'></script>
+    <script src='scripts/getFriendRequests.js'></script>
 </nav>
