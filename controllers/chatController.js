@@ -3,7 +3,7 @@ let chatLogs = model.chatLogs;
 let connections = [];
 
 module.exports = function(io, app){
-    app.get('/test', (req, res)=>{
+    app.get('/', (req, res)=>{
         if(!req.session.user){
             res.redirect('/login');
             return;
@@ -86,13 +86,6 @@ module.exports = function(io, app){
         })
     });
 
-    app.get('/', function(req, res) {
-        if(!req.session.user) {
-            res.redirect('/login');
-        } else {
-            res.redirect('/search');
-        }
-    })
 };
 
 function update(user, friend, msg, clear, io){
