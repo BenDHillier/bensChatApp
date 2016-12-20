@@ -15,8 +15,13 @@ socket.on('getFriendsList', (friendsList)=>{
     if(friendsList.length !== 0){
         friendsList.forEach((friend)=>{
             $('#friendsList')
-                .append($('<li>').text(friend))
-                .append($('<button>').text('chat'));
+                .append($('<button>')
+                    .text(friend)
+                    .addClass('friend')
+                    .attr('value', friend));
+        });
+        $('.friend').click(function() {
+            socket.emit('openConversation', this.value);
         });
     } else {
         $('#friendsList').append($('<li>').text('No Friends'));

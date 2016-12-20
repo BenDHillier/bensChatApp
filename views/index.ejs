@@ -3,12 +3,13 @@
 <head>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src='scripts/renderMains.js'></script>
     <link rel="stylesheet" type="text/css" href="styles/sidebar.css">
 
 </head>
 <body>
     <% include sidebar.ejs %>
-    <div id='profile'>
+    <div id='main'>
         <img id='profilePicture'src=<%= picture %> height=100px width="100px">
         <h2 id='username'><%= username %></h2>
         <p id='bio'><%= bio %></p>

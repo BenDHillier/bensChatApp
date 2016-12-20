@@ -10,7 +10,7 @@ module.exports = function(io, app){
         }
         model.profiles.findOne({username: req.session.user}, (err, data)=>{
             if(!data){
-                res.render('index', Object.assign(model.createProfile('Ben', model.defaultProfile),
+                res.render('index', Object.assign(model.createProfile(req.session.user),
                     {friendsList: null, friendRequests: null, userNotFound:false}));
             } else {
                 console.log('found profile for ', req.session.user);

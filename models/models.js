@@ -29,14 +29,9 @@ let defaultProfile = {
 };
 
 function createProfile(username){
-    let defaultProfile = {
-            username: 'Name',
-            picture: 'assets/profilePictures/default.png',
-            bio: 'Bio goes here'
-    };
-    let result = Object.create(defaultProfile);
-    result.username = username;
-    return result;
+    var picture= 'assets/profilePictures/default.png';
+    var bio = 'Bio goes here'
+    return {username, picture, bio};
 }
 
 function saveProfile(){

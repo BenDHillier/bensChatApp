@@ -1,9 +1,6 @@
 socket.on('search', (data)=>{
     if(data){
-        console.log(data.picture);
-        $('#profilePicture').attr('src', data.picture);
-        $('#username').text(data.username);
-        $('#bio').text(data.bio);
+        renderProfile(data);
     } else {
         console.log("didn't worked");
     }

@@ -34,6 +34,7 @@ module.exports = function(io, socket){
     });
     socket.on('openConversation', (friend) =>{
         session.friend = friend;
+        console.log('friend: ',friend);
         chatLogs.findOne({user: session.user, friend}, function(err, data) {
             if(data){
                 console.log('sending data');
