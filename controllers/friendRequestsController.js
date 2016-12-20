@@ -16,4 +16,15 @@ module.exports = (io, socket)=>{
 
         })
     });
+    socket.on('getFriendsList', ()=>{
+
+        accounts.findOne({username: session.user}, (err, account)=>{
+            if(account){
+                    io.to(socket.id).emit('getFriendsList', account.friendsList);
+            } else {
+                console.log('could not find', session.user)
+            }
+
+        })
+    });
 };

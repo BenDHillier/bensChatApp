@@ -14,11 +14,9 @@
         </li>
     </ul>
     <!-- Friend List  -->
-    <h3>Friends</h3>
+    <button id='friends'>Friends</button>
     <ul id='friendsList'>
-        <% if(friendsList) friendsList.forEach((item) => { %>
-            <button class='friend' value=<%= item %>><%= item %></button>
-        <% }); %>
+
     </ul>
 
     <!-- logout  -->
@@ -28,4 +26,5 @@
     <!-- openConversation must be first script as it declares socket = io() -->
     <script src='scripts/openConversation.js'></script>
     <script src='scripts/getFriendRequests.js'></script>
+    <script src='scripts/getFriendsList.js'></script>
 </nav>
