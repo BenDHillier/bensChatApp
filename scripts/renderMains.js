@@ -15,6 +15,12 @@ function renderProfile(data) {
             .attr('height', '100px')
             .attr('width', '100px'))
         .append($('<h2>').text(data.username))
+        .append($('<button>').text('add')
+            .attr('id', 'addFriend')
+            .click(()=>{
+                socket.emit('sendRequest', data.username);
+                console.log('sending request');
+            }))
         .append($('<p>').text(data.bio));
 }
 

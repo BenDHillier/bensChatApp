@@ -24,3 +24,12 @@ socket.on('getFriendRequests', (requestsList)=>{
     }
 
 });
+
+socket.on('sentRequest', (success)=>{
+    console.log('in sentRequest', success);
+    if(success){
+        $('#addFriend').text('SENT');
+    } else {
+        $('#addFriend').text('FAILED');
+    }
+});

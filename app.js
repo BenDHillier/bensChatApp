@@ -28,6 +28,7 @@ let searchController = require('./controllers/searchController');
 let friendRequestsController = require('./controllers/friendRequestsController');
 let socketSearch = require('./controllers/socketSearch');
 let test = require('./controllers/test');
+let addFriends = require('./controllers/addFriends.js');
 chatController(io, app);
 loginController(app);
 signupController(app);
@@ -36,4 +37,5 @@ io.on('connection', function(socket){
     test(io, socket);
     socketSearch(io, socket);
     friendRequestsController(io, socket);
+    addFriends(io, socket);
 });
