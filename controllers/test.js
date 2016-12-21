@@ -8,15 +8,15 @@ module.exports = function(io, socket){
         let friend = session.friend;
         let user = session.user;
         let friendID = getId(friend);
-        io.to(friendID).emit('chat message', user+": "+msg, user);
+        io.to(friendID).emit('chat message', {user,msg});
         //update chatLog for user and friend
         chatLogs.findOne({user, friend}, function(err, data){
-            data.chatLog.push(user+ ": "+ msg);
+            data.chatLog.push({user, msg});
             chatLogs.update({user, friend}, {chatLog: data.chatLog}, function(err){
             });
         });
         chatLogs.findOne({user: friend, friend: user}, function(err, data){
-            data.chatLog.push(user+ ": "+ msg);
+            data.chatLog.push({user, msg});
             chatLogs.update({user: friend, friend: user}, {chatLog: data.chatLog}, function(err){
             });
         });
@@ -24,12 +24,8 @@ module.exports = function(io, socket){
     socket.on('clear', function(){
         update(session.user, session.friend, '', true, io);
     });
-    socket.on('getFriend', function(sender, msg){
-        let data = {
-            sender,
-            msg,
-            friend: session.friend
-        }
+    socket.on('getFriend', function(data){
+        data.friend = session.friend;
         io.to(socket.id).emit('getFriend', data);
     });
     socket.on('openConversation', (friend) =>{

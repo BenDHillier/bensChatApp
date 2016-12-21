@@ -17,9 +17,8 @@ $('#sendMessage').submit(function(){
 });
 
 
-socket.on('chat message', function(msg, sender){
-    let result = false;
-    socket.emit('getFriend', sender, msg);
+socket.on('chat message', function(data){
+    socket.emit('getFriend', data.user, data.msg);
 });
 
 socket.on('getFriend', function(data){

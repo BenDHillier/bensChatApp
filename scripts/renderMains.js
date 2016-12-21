@@ -2,11 +2,27 @@ function renderChat(data){
     emptyMain();
     $('#main').append($('<ul>').attr('id', 'messages'));
     $('#messages').contents().remove();
-    data.chatLog.forEach(function(msg) {
-        $('#messages')
-            .append($('<div>')
-                .append($('<p>').text(msg)));
+    data.chatLog.forEach(function(entry) {
+        if(data.user === entry.user){
+            $('#messages')
+                .append($('<div>').addClass('message usermsg')
+                    .append($('<p>').text(entry.msg)))
+        } else {
+            $('#messages')
+                .append($('<div>').addClass('left')
+                    .append($('<img>').addClass('thumbnail')
+                        .attr('src', 'assets/profilePictures/default.png'))
+                    .append($('<div>').addClass('message friendmsg')
+                        .append($('<p>').text(entry.msg))));
+        }
     });
+    $('#main')
+        .append($('<form>')
+            .append($('<input>').attr('id', 'messageText')
+                .attr('type', 'textfield'))
+            .append($('<button>').attr('id', 'sendMessage')
+                .attr('type', 'submit')
+                .text('SEND')))
     $("#messages").scrollTop($("#messages")[0].scrollHeight);
 }
 
