@@ -1,11 +1,8 @@
 <!-- Search Bar -->
 <nav id='sidebar'>
-    <form id='searchBar'>
-        <input id='searchQuery' name=searchQuery type='textfield' />
-        <button type='submit'>Search</button>
-    </form>
+    <input id='searchQuery' name=searchQuery type='textfield' placeholder="SEARCH"/>
     <!-- Message Notifications  -->
-    <h3>Messages</h3>
+    <button>Messages</button>
     <!-- Friend Requests  -->
     <button id='friendRequests'>Friend Requests</button>
     <ul id='requestsList'>
@@ -17,11 +14,10 @@
     </ul>
 
     <!-- logout  -->
-    <form id='logout' method="POST" action='/login'>
-        <button type='submit' name='logout' value=true>LOGOUT</button>
-    </form>
+        <button id='logout'>LOGOUT</button>
     <!-- openConversation must be first script as it declares socket = io() -->
     <script src='scripts/openConversation.js'></script>
     <script src='scripts/getFriendRequests.js'></script>
     <script src='scripts/getFriendsList.js'></script>
+    <script src='scripts/logout.js'></script>
 </nav>

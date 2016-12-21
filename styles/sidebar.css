@@ -9,9 +9,48 @@ body{
 }
 
 #sidebar {
-    width: 20%;
+    background-color: rgb(220,220,220);
+    margin:10px;
+    width: 15%;
     height: 100%;
     float:left;
-    background-color: grey;
+}
 
+#sidebar * {
+    font-family: 'Trebuchet MS';
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 0px;
+    margin-top: 20px;
+    border: 0px;
+    width: 100%;
+    height: 5%;
+}
+
+#sidebar button {
+    margin: 0px;
+    background-color: rgb(255,217,102);
+    border: solid;
+    border-color: black;
+    border-right-width: 0px;
+    border-left-width: 0px;
+    border-top-width: 0px;
+    border-bottom-width: 2px;
+
+    text-transform: uppercase;
+}
+
+#sidebar input{
+    width: 100%;
+    text-align: center;
+}
+
+#sidebar ul{
+    margin: 0px;
+    padding: 0px;
+    height: 0px;
+}
+
+*:focus {
+    outline: 0px;
 }

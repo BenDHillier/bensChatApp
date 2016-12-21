@@ -13,13 +13,13 @@ app.use('/scripts', express.static('scripts'));
 app.use('/styles', express.static('styles'));
 app.use('/assets', express.static('assets'));
 app.use(bodyParser.urlencoded({ extended: false }));
-let session = expSession({
+let theSession = expSession({
     resave: false,
     saveUninitialized: false,
     secret: "hello"
 });
-app.use(session);
-io.use(ios(session));
+app.use(theSession);
+io.use(ios(theSession));
 
 let chatController = require('./controllers/chatController');
 let loginController = require('./controllers/loginController');

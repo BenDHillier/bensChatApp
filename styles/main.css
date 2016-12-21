@@ -1,3 +1,11 @@
+html{
+
+}
+body {
+    background-color: rgb(220,220,220);
+    font-family: 'Georgia';
+}
+
 #messages {
     overflow: auto;
     height: 100px;
@@ -5,12 +13,6 @@
     bottom:0;
 }
 
-#friendsList {
-    overflow: auto;
-    height: 100px;
-}
-
-#friendRequests {
-    overflow: auto;
-    height: 100px;
+#main{
+    height: 100%;
 }

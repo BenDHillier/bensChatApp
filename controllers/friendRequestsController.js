@@ -27,4 +27,9 @@ module.exports = (io, socket)=>{
 
         })
     });
+    socket.on('acceptRequest', (sender)=>{
+        friendsController.acceptRequest(session.user, sender, ()=>{
+            io.to(socket.id).emit('acceptedRequest')
+        });
+    });
 };

@@ -14,10 +14,13 @@ socket.on('getFriendRequests', (requestsList)=>{
 
     if(requestsList.length !== 0){
         console.log('recieved requests');
-        requestsList.forEach((request)=>{
+        requestsList.forEach((sender)=>{
             $('#requestsList')
-                .append($('<li>').text(request))
-                .append($('<button>').text('add'));
+                .append($('<li>').text(sender))
+                .append($('<button>').text('add')
+                    .click(()=>{
+                        socket.emit('acceptRequest');
+                    }));
         });
     } else {
         $('#requestsList').append($('<li>').text('No Requests'));
