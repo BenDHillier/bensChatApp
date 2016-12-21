@@ -41,6 +41,17 @@
     margin-top: 32px;
 }
 
+#bio {
+    background-color: rgb(220,220,220);
+    margin-left: 20px;
+    width: 30%;
+    height: 50%;
+    padding: 20px;
+    padding-top: 10px;
+    text-align: center;
+    line-height: 150%;
+}
 
-#main button {
+#bio * {
+
 }
