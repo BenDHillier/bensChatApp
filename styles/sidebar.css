@@ -24,7 +24,7 @@ body{
     margin-top: 20px;
     border: 0px;
     width: 100%;
-    height: 5%;
+    height:50px;
 }
 
 #sidebar button {
@@ -49,6 +49,7 @@ body{
     margin: 0px;
     padding: 0px;
     height: 0px;
+    overflow: auto;
 }
 
 *:focus {
