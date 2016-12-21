@@ -11,9 +11,7 @@ function renderChat(data){
 function renderProfile(data) {
     emptyMain();
     $('#main')
-        .append($('<img>').attr('src', data.picture)
-            .attr('height', '100px')
-            .attr('width', '100px'))
+        .append($('<img>').attr('src', data.picture))
         .append($('<h2>').text(data.username))
         .append($('<button>').text('add')
             .attr('id', 'addFriend')

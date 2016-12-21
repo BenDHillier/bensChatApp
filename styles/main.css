@@ -4,6 +4,7 @@ html{
 body {
     background-color: rgb(220,220,220);
     font-family: 'Georgia';
+    color: rgb(60,60,60);
 }
 
 #messages {
@@ -15,4 +16,9 @@ body {
 
 #main{
     height: 100%;
+    width: 80%;
+    background-color: rgb(240,240,240);
+    float: right;
+    margin-top: 30px;
+    margin-right: 20px;
 }

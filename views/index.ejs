@@ -7,13 +7,29 @@
     <script src='scripts/renderMains.js'></script>
     <link rel="stylesheet" type="text/css" href="styles/sidebar.css">
     <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/profiles.css">
 </head>
 <body>
     <% include sidebar.ejs %>
     <div id='main'>
-        <img id='profilePicture'src=<%= picture %> height=100px width="100px">
-        <h2 id='username'><%= username %></h2>
+        <div id='topMain'>
+                <img id='profilePicture'src=<%= picture %>>
+                <h2 id='username'><%= username %></h2>
+
+            <button>ADD</button>
+            <button>CHAT</button>
+        </div>
+
+<!--
         <p id='bio'><%= bio %></p>
+    -->
+        <p>
+            Lorem ipsum dolor sit amet, vis an munere oblique,
+            mel ad tota splendide. Duo cetero corrumpit patrioque
+            no. No voluptua lobortis ius. Sumo melius ea mea, soleat
+             dissentiunt eam ei. Adhuc civibus id vix. Cu consul
+             audire vix, eam referrentur instructior ea.
+        </p>
     </div>
 
     <script src='scripts/index.js'></script>
