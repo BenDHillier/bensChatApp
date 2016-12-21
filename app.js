@@ -21,6 +21,10 @@ let theSession = expSession({
 app.use(theSession);
 io.use(ios(theSession));
 
+app.get('/test', (req,res)=>{
+    res.render('test');
+})
+
 let chatController = require('./controllers/chatController');
 let loginController = require('./controllers/loginController');
 let signupController = require('./controllers/signupController');

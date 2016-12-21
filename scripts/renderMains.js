@@ -3,7 +3,9 @@ function renderChat(data){
     $('#main').append($('<ul>').attr('id', 'messages'));
     $('#messages').contents().remove();
     data.chatLog.forEach(function(msg) {
-        $('#messages').append($('<li>').text(msg));
+        $('#messages')
+            .append($('<div>')
+                .append($('<p>').text(msg)));
     });
     $("#messages").scrollTop($("#messages")[0].scrollHeight);
 }
@@ -20,7 +22,10 @@ function renderProfile(data) {
                     socket.emit('sendRequest', data.username);
                     console.log('sending request');
                 }))
-            .append($('<button>').text('CHAT')))
+            .append($('<button>').text('CHAT')
+                .click(()=>{
+                    socket.emit('openConversation', data.username);
+                })))
         .append($('<div>').attr('id', 'bio')
             .append($('<h3>').text('BIO'))
             .append($('<p>').text(data.bio)));

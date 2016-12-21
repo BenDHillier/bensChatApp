@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+    <script src='scripts/socket.js'></script>
+    <script src='scripts/renderMains.js'></script>
+    <link rel="stylesheet" type="text/css" href="styles/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/profiles.css">
+    <link rel="stylesheet" type="text/css" href="styles/chat.css">
+</head>
+<body>
+    <% include sidebar.ejs %>
+    <div id='main'>
+            <ul id='messages'>
+                <div class='message friendmsg'>
+                    <p>Lorem ipsum dolor sit amet, vis an munere oblique,
+                        mel ad tota splendide. Duo cetero corrumpit
+                        patrioque no. No voluptua lobortis ius.
+                        Sumo melius ea mea, soleat dissentiunt eam ei.
+                        Adhuc civibus id vix. Cu consul audire vix, eam
+                         referrentur instructior ea.
+                    </p>
+                </div>
+                <div class='message usermsg'>
+                    <p>Lorem ipsum dolor sit amet, vis an munere oblique,
+                        mel ad tota splendide. Duo cetero corrumpit
+                        patrioque no. No voluptua lobortis ius.
+                        Sumo melius ea mea, soleat dissentiunt eam ei.
+                    </p>
+                </div>
+                <div class='message usermsg'>
+                    <p>Lorem ipsum dolor sit amet, vis an munere oblique,
+                        mel ad tota splendide. Duo cetero corrumpit
+                        patrioque no. No voluptua lobortis ius.
+                        Sumo melius ea mea, soleat dissentiunt eam ei.
+                    </p>
+                </div>
+                <div class='message friendmsg'>
+                    <p>Lorem ipsum dolor sit amet, vis an munere oblique,
+                        mel ad tota splendide. Duo cetero corrumpit
+                        patrioque no. No voluptua lobortis ius.
+                        Sumo melius ea mea, soleat dissentiunt eam ei.
+                        Adhuc civibus id vix. Cu consul audire vix, eam
+                         referrentur instructior ea.
+                    </p>
+                </div>
+
+
+            </ul>
+        <form>
+            <input id='messageText' type='textfield'/>
+            <button type='submit' id='sendMessage'>SEND</button>
+        </form>
+    </div>
+
+    <script src='scripts/index.js'></script>
+    <script src='scripts/logout.js'></script>
+    <script src='scripts/search.js'></script>
+</body>
+</html>

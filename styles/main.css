@@ -10,8 +10,6 @@ body {
 #messages {
     overflow: auto;
     height: 100px;
-    position: relative;
-    bottom:0;
 }
 
 #main{
