@@ -18,6 +18,16 @@ function renderChat(data){
     });
     $('#main')
         .append($('<form>')
+            .submit(()=>{
+                let text = $('#messageText').val();
+                if(text){
+                    socket.emit('chat message', text);
+                    addUserMessage(text);
+                    $('#messages').scrollTop($("#messages")[0].scrollHeight);
+                    $('#messageText').val('');
+                }
+                return false;
+            })
             .append($('<input>').attr('id', 'messageText')
                 .attr('type', 'textfield'))
             .append($('<button>').attr('id', 'sendMessage')
@@ -51,4 +61,10 @@ function emptyMain() {
     Array.from($('#main').children()).forEach((child)=>{
         child.remove();
     });
+}
+
+function addUserMessage(text){
+    $('#messages')
+        .append($('<div>').addClass('message usermsg')
+            .append($('<p>').text(text)));
 }
