@@ -7,8 +7,6 @@ socket.on('search', (data)=>{
 });
 
 $('#searchBar').submit(()=>{
-    console.log($('#searchQuery').val());
-    let search = $('#searchQuery').val();
-    socket.emit('search', search);
+    socket.emit('search', $('#searchQuery').val());
     return false;
 });

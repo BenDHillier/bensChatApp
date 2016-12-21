@@ -11,15 +11,19 @@ function renderChat(data){
 function renderProfile(data) {
     emptyMain();
     $('#main')
-        .append($('<img>').attr('src', data.picture))
-        .append($('<h2>').text(data.username))
-        .append($('<button>').text('add')
-            .attr('id', 'addFriend')
-            .click(()=>{
-                socket.emit('sendRequest', data.username);
-                console.log('sending request');
-            }))
-        .append($('<p>').text(data.bio));
+        .append($('<div>').attr('id', 'topMain')
+            .append($('<img>').attr('src', data.picture))
+            .append($('<h2>').text(data.username))
+            .append($('<button>').text('ADD')
+                .attr('id', 'addFriend')
+                .click(()=>{
+                    socket.emit('sendRequest', data.username);
+                    console.log('sending request');
+                }))
+            .append($('<button>').text('CHAT')))
+        .append($('<div>').attr('id', 'bio')
+            .append($('<h3>').text('BIO'))
+            .append($('<p>').text(data.bio)));
 }
 
 function emptyMain() {

@@ -19,13 +19,16 @@ socket.on('getFriendsList', (friendsList)=>{
             $('#friendsList').height(height + 'px')
                 .append($('<button>')
                     .text(friend)
-                    .addClass('friend')
+                    .addClass('friend') //possibly not in use
                     .attr('value', friend)
-                    .css('background-color', 'rgb(255,230,150)'));
+                    .css('background-color', 'rgb(255,230,150)')
+                    .click(()=>{
+                        socket.emit('search', friend);
+                    }));
         });
-        $('.friend').click(function() {
-            socket.emit('openConversation', this.value);
-        });
+        //$('.friend').click(function() {
+        //    socket.emit('openConversation', this.value);
+        //});
     } else {
         $('#friendsList').height('50px')
             .append($('<button>').text('No Friends')
