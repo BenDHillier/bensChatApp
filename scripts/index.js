@@ -6,17 +6,6 @@
 *   the sender is the current friend the user is talking with.
 */
 
-
-//var socket = io();
-$('#sendMessage').submit(function(){
-    let msg = $('#m').val();
-    socket.emit('chat message', msg);
-    $('#messages').append($('<li>').text(msg));
-    $('#m').val('');
-    return false;
-});
-
-
 socket.on('chat message', function(data){
     socket.emit('getFriend', data);
 });
