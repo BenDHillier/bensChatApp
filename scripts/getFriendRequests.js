@@ -1,15 +1,6 @@
 $('#friendRequests').click(()=>{
-    if($('#requestsList').children().length === 0){
-        console.log('emitting getFriendRequests');
-        socket.emit('getFriendRequests');
-    }
-    else {
-
-        Array.from($('#requestsList').children()).forEach((child)=>{
-            child.remove();
-        });
-        $('#requestsList').height('0px');
-    }
+    openList('#requestsList', 'getFriendRequests')
+    
 });
 
 socket.on('getFriendRequests', (requestsList)=>{

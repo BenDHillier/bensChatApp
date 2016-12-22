@@ -1,14 +1,5 @@
 $('#friends').click(()=>{
-    console.log('button works');
-    if($('#friendsList').children().length === 0){
-        socket.emit('getFriendsList');
-    }
-    else {
-        Array.from($('#friendsList').children()).forEach((child)=>{
-            child.remove();
-        });
-        $('#friendsList').height('0px');
-    }
+    openList('#friendsList', 'getFriendsList');
 });
 
 socket.on('getFriendsList', (friendsList)=>{
@@ -36,3 +27,15 @@ socket.on('getFriendsList', (friendsList)=>{
     }
 
 });
+
+function openList(list, emit){
+    if($(list).children().length === 0){
+        socket.emit(emit);
+    }
+    else {
+        Array.from($(list).children()).forEach((child)=>{
+            child.remove();
+        });
+        $(list).height('0px');
+    }
+}

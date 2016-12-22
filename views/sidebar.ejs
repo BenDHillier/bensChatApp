@@ -5,7 +5,9 @@
     </form>
 
     <!-- Message Notifications  -->
-    <button>Messages</button>
+    <button id='notifications'>Notifications</button>
+    <ul id='notificationsList'>
+    </ul>
     <!-- Friend Requests  -->
     <button id='friendRequests'>Friend Requests</button>
     <ul id='requestsList'>
@@ -20,7 +22,8 @@
         <button id='logout'>LOGOUT</button>
     <!-- openConversation must be first script as it declares socket = io() -->
     <script src='scripts/openConversation.js'></script>
-    <script src='scripts/getFriendRequests.js'></script>
     <script src='scripts/getFriendsList.js'></script>
+    <script src='scripts/getFriendRequests.js'></script>
+    <script src='scripts/getNotifications.js'></script>
     <script src='scripts/logout.js'></script>
 </nav>
