@@ -9,11 +9,9 @@ module.exports = function(io, app){
         } else {
             model.profiles.findOne({username: req.session.user}, (err, data)=>{
                 if(!data){
-                    res.render('index', Object.assign(model.createProfile(req.session.user),
-                        {friendsList: null, friendRequests: null, userNotFound:false}));
+                    res.render('index', model.createProfile(req.session.user));
                 } else {
-                    res.render('index', Object.assign(data,
-                        {friendsList: null, friendRequests: null, userNotFound:false}));
+                    res.render('index', data);
                 }
             });
         }
