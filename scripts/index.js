@@ -18,15 +18,13 @@ $('#sendMessage').submit(function(){
 
 
 socket.on('chat message', function(data){
-    socket.emit('getFriend', data.user, data.msg);
+    socket.emit('getFriend', data);
 });
 
 socket.on('getFriend', function(data){
-    let friend = data.friend,
-        sender = data.sender,
-        msg = data.msg;
-    if(friend === sender) {
-        $('#messages').append($('<li>').text(msg));
+    if(data.friend === data.user) {
+        addFriendMessage(data.msg);
+        //$('#messages').append($('<li>').text(msg));
     } else {
         //notify user they were sent a message
         $('#messages').append($('<li>').text(sender + ' sent you a message'));

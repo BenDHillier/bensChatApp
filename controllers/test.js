@@ -26,6 +26,7 @@ module.exports = function(io, socket){
     });
     socket.on('getFriend', function(data){
         data.friend = session.friend;
+        console.log('getfriend: ', data)
         io.to(socket.id).emit('getFriend', data);
     });
     socket.on('openConversation', (friend) =>{

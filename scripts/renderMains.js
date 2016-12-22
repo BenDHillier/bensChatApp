@@ -4,9 +4,7 @@ function renderChat(data){
     $('#messages').contents().remove();
     data.chatLog.forEach(function(entry) {
         if(data.user === entry.user){
-            $('#messages')
-                .append($('<div>').addClass('message usermsg')
-                    .append($('<p>').text(entry.msg)))
+            addUserMessage(entry.msg);
         } else {
             $('#messages')
                 .append($('<div>').addClass('left')
@@ -67,4 +65,13 @@ function addUserMessage(text){
     $('#messages')
         .append($('<div>').addClass('message usermsg')
             .append($('<p>').text(text)));
+}
+
+function addFriendMessage(text){
+    $('#messages')
+        .append($('<div>').addClass('left')
+            .append($('<img>').addClass('thumbnail')
+                .attr('src', 'assets/profilePictures/default.png'))
+            .append($('<div>').addClass('message friendmsg')
+                .append($('<p>').text(text))));
 }
