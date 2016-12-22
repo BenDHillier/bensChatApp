@@ -15,6 +15,7 @@ socket.on('recieveNotifications', notifications=>{
                     .css('background-color', 'rgb(255,230,150)')
                     .click(()=>{
                         //go to chat page of friend
+                        socket.emit('openConversation', friend);
                     })
                 );
         });
