@@ -7,7 +7,7 @@ socket.on('getFriendsList', (friendsList)=>{
     if(friendsList.length !== 0){
         let height = friendsList.length>2 ? 150 : friendsList.length * 50;
         $('#friendsList').height(height + 'px');
-        friendsList.forEach((friend)=>{
+        friendsList.sort().forEach((friend)=>{
             $('#friendsList')
                 .append($('<button>')
                     .text(friend)
