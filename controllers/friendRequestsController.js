@@ -32,4 +32,12 @@ module.exports = (io, socket)=>{
             io.to(socket.id).emit('acceptedRequest', sender)
         });
     });
+    socket.on('getNotifications', ()=>{
+        accounts.findOne({username: session.user}, (err,data)=>{
+            console.log('here')
+            if(data){
+                io.to(socket.id).emit('recieveNotifications', data.notifications);
+            }
+        })
+    })
 };

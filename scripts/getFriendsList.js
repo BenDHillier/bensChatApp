@@ -3,7 +3,6 @@ $('#friends').click(()=>{
 });
 
 socket.on('getFriendsList', (friendsList)=>{
-
     if(friendsList.length !== 0){
         let height = friendsList.length>2 ? 150 : friendsList.length * 50;
         $('#friendsList').height(height + 'px');
@@ -16,17 +15,14 @@ socket.on('getFriendsList', (friendsList)=>{
                     .css('background-color', 'rgb(255,230,150)')
                     .click(()=>{
                         socket.emit('search', friend);
-                    }));
+                    })
+                );
         });
-        //$('.friend').click(function() {
-        //    socket.emit('openConversation', this.value);
-        //});
     } else {
         $('#friendsList').height('50px')
             .append($('<button>').text('No Friends')
                 .css('background-color', 'rgb(255,230,150)'));
     }
-
 });
 
 function openList(list, emit){
