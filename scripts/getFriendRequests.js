@@ -4,6 +4,7 @@ $('#friendRequests').click(()=>{
         socket.emit('getFriendRequests');
     }
     else {
+
         Array.from($('#requestsList').children()).forEach((child)=>{
             child.remove();
         });
@@ -20,14 +21,25 @@ socket.on('getFriendRequests', (requestsList)=>{
         requestsList.forEach((sender)=>{
             $('#requestsList')
                 .append($('<button>').text(sender)
-                    .addClass('request')
+                    .attr('id', sender+'Request')
+                    //.addClass('request')
                     .css('background-color', 'rgb(255,230,150)')
                     .width('80%')
                     .click(()=>{
-                        socket.emit('acceptRequest');
+                        socket.emit('acceptRequest', sender);
+
                     }))
                 .append($('<button>').text('x')
-                    .width('20%'));
+                    .width('20%')
+                    .attr('id', sender+'Remove')
+                    .click(()=>{
+                        $('#'+sender+'Request').remove();
+                        $('#'+sender+'Remove').remove();
+                        if($('#requestsList').children().length<6){
+                            let height = $('#requestsList').height();
+                            $('#requestsList').height(height-50);
+                        }
+                    }));
         });
     } else {
         $('#requestsList').height('50px')
@@ -45,6 +57,16 @@ socket.on('sentRequest', (success)=>{
     } else {
         $('#addFriend').text('FAILED');
     }
+});
+
+socket.on('acceptedRequest', (friend)=>{
+    $('#'+friend+'Request').remove();
+    $('#'+friend+'Remove').remove();
+    if($('#requestsList').children().length<6){
+        let height = $('#requestsList').height();
+        $('#requestsList').height(height-50);
+    }
+
 });
 
 function renderDropDown(list, ulId, emit, className, emptyMessage) {
