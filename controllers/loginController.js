@@ -9,6 +9,7 @@ module.exports = function(app){
 
     app.post('/login', function(req, res){
         if(req.body.logout){
+            //user is logged out
             req.session.user = null;
             req.session.friend = null;
             res.render('login', {error: ''});
@@ -19,7 +20,6 @@ module.exports = function(app){
                 req.session.user = req.body.user;
                 res.redirect('/');
             } else {
-
                 res.render('login', {error: 'invalid username or password'});
             }
         });

@@ -9,7 +9,8 @@ let accountSchema = Object.create(mongoose.Schema({
     username: String,
     password: String,
     friendsList: Array,
-    friendRequests: Array
+    friendRequests: Array,
+    notifications: Array
 }));
 let profileSchema = Object.create(mongoose.Schema({
     username: String,

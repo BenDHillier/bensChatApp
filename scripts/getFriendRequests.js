@@ -1,11 +1,12 @@
 $('#friendRequests').click(()=>{
     openList('#requestsList', 'getFriendRequests')
-    
+
 });
 
 socket.on('getFriendRequests', (requestsList)=>{
 
     if(requestsList.length !== 0){
+        $('#friendRequests').css('color', 'rgb(80,80,80)');
         console.log('recieved requests');
         let height = requestsList.length>2 ? 150 : requestsList.length * 50;
         $('#requestsList').height(height);

@@ -7,7 +7,6 @@ module.exports = (io, socket)=>{
     socket.on('getFriendRequests', ()=>{
 
         accounts.findOne({username: session.user}, (err, account)=>{
-            console.log('recieved getFriendRequests');
             if(account){
                     io.to(socket.id).emit('getFriendRequests', account.friendRequests);
             } else {
