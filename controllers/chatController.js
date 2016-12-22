@@ -3,6 +3,25 @@ let chatLogs = model.chatLogs;
 let connections = [];
 
 module.exports = function(io, app){
+    app.get('/', (req, res)=>{
+        if(!req.session.user){
+
+            res.redirect('/login');
+            return;
+        }
+        console.log(req.session.user);
+        model.profiles.findOne({username: req.session.user}, (err, data)=>{
+            if(!data){
+                res.render('index', Object.assign(model.createProfile(req.session.user),
+                    {friendsList: null, friendRequests: null, userNotFound:false}));
+            } else {
+                console.log('found profile for ', req.session.user);
+                res.render('index', Object.assign(data,
+                    {friendsList: null, friendRequests: null, userNotFound:false}));
+            }
+        });
+
+    });
     /*
     io.on('connection', function(socket){
         let session = socket.handshake.session;
@@ -68,13 +87,6 @@ module.exports = function(io, app){
         })
     });
 
-    app.get('/', function(req, res) {
-        if(!req.session.user) {
-            res.redirect('/login');
-        } else {
-            res.redirect('/search');
-        }
-    })
 };
 
 function update(user, friend, msg, clear, io){

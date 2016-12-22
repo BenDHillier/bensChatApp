@@ -1,0 +1,65 @@
+#messages {
+    background-color: rgb(220,220,220);
+    font-family: 'Trebuchet MS';
+    height: 80%;
+    width: 80%%;
+    margin-left: 20px;
+    margin-right: 20px;
+    overflow: auto;
+}
+
+.message {
+    margin: 20px;
+
+    width:50%;
+    border-radius: 15px;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.usermsg {
+    float:right;
+    background-color: rgb(255,217,102);
+}
+
+.friendmsg{
+    background-color: rgb(240,240,240);
+    margin-left: 80px;
+}
+
+#sendMessage {
+    font-size: 18px;
+    font-weight: bold;
+    color: rgb(80,80,80);
+    margin: 0px;
+    background-color: rgb(255,217,102);
+    border-radius: 0px;
+    border: 0px;
+    padding: 15px;
+    float:right;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    height: 55px;
+}
+
+#messageText {
+    font-size: 18px;
+    padding-left: 20px;
+    padding-right: 20px;
+    width:83%;
+    height: 50px;
+    margin-left: 20px;
+}
+
+.thumbnail {
+    width:60px;
+    height:60px;
+    float:left;
+    margin-top: 40px;
+}
+
+.left {
+    float:left;
+    width: 100%;
+}

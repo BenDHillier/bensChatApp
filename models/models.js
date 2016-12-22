@@ -11,11 +11,42 @@ let accountSchema = Object.create(mongoose.Schema({
     friendsList: Array,
     friendRequests: Array
 }));
+let profileSchema = Object.create(mongoose.Schema({
+    username: String,
+    picture: String,
+    bio: String
+}));
+
 
 let chatLogs = mongoose.model('chatLogs', chatSchema);
 let accounts = mongoose.model('accounts', accountSchema);
+let profiles = mongoose.model('profiles', profileSchema);
+
+let defaultProfile = {
+        username: 'Name',
+        picture: 'assets/profilePictures/default.png',
+        bio: 'Bio goes here'
+};
+
+function createProfile(username){
+    var picture= 'assets/profilePictures/default.png';
+    var bio = 'Bio goes here'
+    return {username, picture, bio};
+}
+
+function saveProfile(){
+    Object.create(profiles({
+        username: 'test',
+        picture: 'assets/profilePictures/default.png',
+        bio: 'I made a bio'
+    })).save();
+}
 
 module.exports = {
-    chatLogs: chatLogs,
-    accounts: accounts
+    chatLogs,
+    accounts,
+    profiles,
+    createProfile,
+    defaultProfile,
+    saveProfile
 }

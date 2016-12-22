@@ -11,24 +11,35 @@ let ios = require('socket.io-express-session');
 app.set('view engine', 'ejs');
 app.use('/scripts', express.static('scripts'));
 app.use('/styles', express.static('styles'));
+app.use('/assets', express.static('assets'));
 app.use(bodyParser.urlencoded({ extended: false }));
-let session = expSession({
+let theSession = expSession({
     resave: false,
     saveUninitialized: false,
     secret: "hello"
 });
-app.use(session);
-io.use(ios(session));
+app.use(theSession);
+io.use(ios(theSession));
+
+app.get('/test', (req,res)=>{
+    res.render('test');
+})
 
 let chatController = require('./controllers/chatController');
 let loginController = require('./controllers/loginController');
 let signupController = require('./controllers/signupController');
 let searchController = require('./controllers/searchController');
+let friendRequestsController = require('./controllers/friendRequestsController');
+let socketSearch = require('./controllers/socketSearch');
 let test = require('./controllers/test');
+let addFriends = require('./controllers/addFriends.js');
 chatController(io, app);
 loginController(app);
 signupController(app);
 searchController(app, io);
 io.on('connection', function(socket){
     test(io, socket);
+    socketSearch(io, socket);
+    friendRequestsController(io, socket);
+    addFriends(io, socket);
 });

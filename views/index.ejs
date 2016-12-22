@@ -3,25 +3,42 @@
 <head>
     <script src="/socket.io/socket.io.js"></script>
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
-
+    <script src='scripts/socket.js'></script>
+    <script src='scripts/renderMains.js'></script>
+    <link rel="stylesheet" type="text/css" href="styles/sidebar.css">
+    <link rel="stylesheet" type="text/css" href="styles/main.css">
+    <link rel="stylesheet" type="text/css" href="styles/profiles.css">
+    <link rel="stylesheet" type="text/css" href="styles/chat.css">
 </head>
 <body>
-    <ul id='messages'>
-        <% chatLog.forEach(function(item){ %>
-            <li><%=item%></li>
-        <% }); %>
-    </ul>
+    <% include sidebar.ejs %>
+    <div id='main'>
+        <div id='topMain'>
+                <img id='profilePicture'src=<%= picture %>>
+                <h2 id='username'><%= username %></h2>
 
-    <form id="sendMessage">
-        <input id='m' type="textfield" />
-        <button type="submit">Press</button>
-    </form>
-    <form id='clear'>
-        <button type="submit">Clear</button>
-    </form>
-    <form method='GET', action='search'>
-        <button type="submit">New Search</button>
-    </form>
+            <button>ADD</button>
+            <button>CHAT</button>
+        </div>
+
+<!--
+        <p id='bio'><%= bio %></p>
+    -->
+        <div id='bio'>
+            <h3>BIO</h3>
+            <p>
+                Lorem ipsum dolor sit amet, vis an munere oblique,
+                mel ad tota splendide. Duo cetero corrumpit patrioque
+                no. No voluptua lobortis ius. Sumo melius ea mea, soleat
+                 dissentiunt eam ei. Adhuc civibus id vix. Cu consul
+                 audire vix, eam referrentur instructior ea.
+            </p>
+        </div>
+
+    </div>
+
     <script src='scripts/index.js'></script>
+    <script src='scripts/logout.js'></script>
+    <script src='scripts/search.js'></script>
 </body>
 </html>

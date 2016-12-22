@@ -17,17 +17,14 @@ $('#sendMessage').submit(function(){
 });
 
 
-socket.on('chat message', function(msg, sender){
-    let result = false;
-    socket.emit('getFriend', sender, msg);
+socket.on('chat message', function(data){
+    socket.emit('getFriend', data);
 });
 
 socket.on('getFriend', function(data){
-    let friend = data.friend,
-        sender = data.sender,
-        msg = data.msg;
-    if(friend === sender) {
-        $('#messages').append($('<li>').text(msg));
+    if(data.friend === data.user) {
+        addFriendMessage(data.msg);
+        $("#messages").scrollTop($("#messages")[0].scrollHeight);
     } else {
         //notify user they were sent a message
         $('#messages').append($('<li>').text(sender + ' sent you a message'));
@@ -35,11 +32,9 @@ socket.on('getFriend', function(data){
 });
 
 socket.on('clear', function() {
-    let myChild = $('#messages').children();
-    console.log(myChild.length);
-    for(i=0;i<myChild.length;i++){
+    Array.from($('#messages').children()).forEach(()=>{
         myChild[i].remove();
-    }
+    });
 })
 $('#clear').submit(function() {
     socket.emit('clear');

@@ -43,10 +43,10 @@ module.exports = {
                 if(!duplicate)
                     friendRequests.push(sender);
                 accounts.update({username}, {friendRequests}, function(err){
-                    callback();
+                    callback(true);
                 });
             } else {
-                console.log('couldnt find user', friend);
+                callback(false)
             }
         });
     }

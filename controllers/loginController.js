@@ -3,6 +3,7 @@ let accounts = model.accounts;
 let chatLogs = model.chatLogs;
 module.exports = function(app){
     app.get('/login', function(req, res){
+        req.session.user = null;
         res.render('login', {error: ''});
     });
 

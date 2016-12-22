@@ -1,16 +1,22 @@
+html{
+
+}
+body {
+    background-color: rgb(220,220,220);
+    font-family: 'Georgia';
+    color: rgb(60,60,60);
+}
+
 #messages {
     overflow: auto;
     height: 100px;
-    position: relative;
-    bottom:0;
 }
 
-#friendsList {
-    overflow: auto;
-    height: 100px;
-}
-
-#friendRequests {
-    overflow: auto;
-    height: 100px;
+#main{
+    height: 90%;
+    width: 80%;
+    background-color: rgb(240,240,240);
+    float: right;
+    margin-top: 30px;
+    margin-right: 20px;
 }
