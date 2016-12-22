@@ -1,5 +1,6 @@
 let model = require('../models/models');
 let chatLogs = model.chatLogs;
+let accounts = model.accounts;
 let connections = require('./connections')  //[];
 module.exports = function(io, socket){
     let session = socket.handshake.session;
@@ -9,6 +10,13 @@ module.exports = function(io, socket){
         let user = session.user;
         let friendID = connections.getId(friend);
         io.to(friendID).emit('chat message', {user,msg});
+        //add user to friends notification list
+        accounts.findOne({username: friend}, (err, data)=>{
+            if(data.notifications.indexOf(user) === -1){
+                data.notifications.push(user);
+                data.save();
+            }
+        })
         //update chatLog for user and friend
         chatLogs.findOne({user, friend}, function(err, data){
             data.chatLog.push({user, msg});
