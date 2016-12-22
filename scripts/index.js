@@ -24,7 +24,7 @@ socket.on('chat message', function(data){
 socket.on('getFriend', function(data){
     if(data.friend === data.user) {
         addFriendMessage(data.msg);
-        //$('#messages').append($('<li>').text(msg));
+        $("#messages").scrollTop($("#messages")[0].scrollHeight);
     } else {
         //notify user they were sent a message
         $('#messages').append($('<li>').text(sender + ' sent you a message'));
