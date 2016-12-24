@@ -11,11 +11,20 @@ socket.on('recieveNotifications', notifications=>{
             $('#notificationsList')
                 .append($('<button>')
                     .text(friend)
-                    .attr('value', friend)
+                    //.attr('value', friend)
+                    .attr('id', friend+'Note')
                     .css('background-color', 'rgb(255,230,150)')
                     .click(()=>{
                         //go to chat page of friend
+                        //and remove item from notifications
                         socket.emit('openConversation', friend);
+                        socket.emit('removeNotification', friend);
+                        //duplicate in getFriendRequests
+                        $('#'+friend+'Note').remove();
+                        if($('#notificationsList').children().length<3){
+                            let height = $('#notificationsList').height();
+                            $('#notificationsList').height(height-50);
+                        }
                     })
                 );
         });

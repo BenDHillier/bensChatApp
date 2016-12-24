@@ -27,17 +27,21 @@ module.exports = (io, socket)=>{
         })
     });
     socket.on('acceptRequest', (sender)=>{
-        console.log('accepting request', sender,session.user);
         friendsController.acceptRequest(session.user, sender, ()=>{
             io.to(socket.id).emit('acceptedRequest', sender)
         });
     });
     socket.on('getNotifications', ()=>{
         accounts.findOne({username: session.user}, (err,data)=>{
-            console.log('here')
             if(data){
                 io.to(socket.id).emit('recieveNotifications', data.notifications);
             }
         })
     })
+    socket.on('removeNotification', friend=>{
+        accounts.findOne({username: session.user}, (err,data)=>{
+            data.notifications = data.notifications.filter(x=>x!==friend);
+            data.save();
+        });
+    });
 };
