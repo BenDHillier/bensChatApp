@@ -35,6 +35,9 @@ let addFriends = require('./controllers/addFriends.js');
 chatController(io, app);
 loginController(app);
 signupController(app);
+app.get('*', (req,res)=>{
+    res.redirect('/');
+})
 io.on('connection', function(socket){
     test(io, socket);
     searchController(io, socket);
