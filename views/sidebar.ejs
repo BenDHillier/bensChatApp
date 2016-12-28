@@ -5,7 +5,11 @@
     </form>
 
     <!-- Message Notifications  -->
-    <button id='notifications'>Notifications</button>
+    <button id='notifications'
+    <% if(newNotifications) { %>
+        style='color:red;'
+    <% } %>
+    >Notifications</button>
     <ul id='notificationsList'>
     </ul>
     <!-- Friend Requests  -->

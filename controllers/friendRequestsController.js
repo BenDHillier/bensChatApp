@@ -34,6 +34,8 @@ module.exports = (io, socket)=>{
     socket.on('getNotifications', ()=>{
         accounts.findOne({username: session.user}, (err,data)=>{
             if(data){
+                data.newNotifications = false;
+                data.save();
                 io.to(socket.id).emit('recieveNotifications', data.notifications);
             }
         })

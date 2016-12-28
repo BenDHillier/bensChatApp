@@ -16,8 +16,8 @@ let accountSchema = Object.create(mongoose.Schema({
 }));
 let profileSchema = Object.create(mongoose.Schema({
     username: String,
-    picture: String,
-    bio: String
+    picture: {type:String, default:'assets/profilePictures/default.png'},
+    bio: {type:String, default:'bio goes here'}
 }));
 
 
@@ -32,9 +32,9 @@ let defaultProfile = {
 };
 
 function createProfile(username){
-    var picture= 'assets/profilePictures/default.png';
-    var bio = 'Bio goes here'
-    return {username, picture, bio};
+    let result = Object.create(profiles({username}));
+    result.save();
+    return result;
 }
 
 function saveProfile(){

@@ -11,13 +11,11 @@ module.exports = function(io, app){
                 model.accounts.findOne({username: req.session.user}, (err,account)=>{
                     if(!profile){
                         //make this create someones profile page
-                        res.render('index', Object.assign(
-                            model.createProfile(req.session.user),
-                            {friendRequests: account.friendRequests,
-                                notifications: account.notifications}));
-                    } else {
-                        res.render('index', profile);
+                        profile = model.createProfile(req.session.user);
                     }
+                    res.render('index', Object.assign(profile,{
+                        newNotifications:account.newNotifications
+                    }));
                 })
             });
         }

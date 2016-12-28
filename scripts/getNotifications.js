@@ -3,7 +3,7 @@ $('#notifications').click(()=>{
 });
 
 socket.on('recieveNotifications', notifications=>{
-    console.log('recieved', notifications)
+    $('#notifications').css('color', 'rgb(60,60,60)');
     if(notifications.length !== 0){
         let height = notifications.length>2 ? 150 : notifications.length * 50;
         $('#notificationsList').height(height+'px');
