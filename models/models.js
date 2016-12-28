@@ -8,9 +8,11 @@ let chatSchema = Object.create(mongoose.Schema({
 let accountSchema = Object.create(mongoose.Schema({
     username: String,
     password: String,
-    friendsList: Array,
-    friendRequests: Array,
-    notifications: Array
+    friendsList: {type:Array, default:[]},
+    friendRequests: {type:Array, default:[]},
+    notifications: {type:Array, default:[]},
+    newNotifications: {type:Boolean, default:false},
+    newRequests: {type:Boolean, default:false}
 }));
 let profileSchema = Object.create(mongoose.Schema({
     username: String,
