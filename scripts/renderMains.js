@@ -6,12 +6,7 @@ function renderChat(data){
         if(data.user === entry.user){
             addUserMessage(entry.msg);
         } else {
-            $('#messages')
-                .append($('<div>').addClass('left')
-                    .append($('<img>').addClass('thumbnail')
-                        .attr('src', 'assets/profilePictures/default.png'))
-                    .append($('<div>').addClass('message friendmsg')
-                        .append($('<p>').text(entry.msg))));
+            addFriendMessage(entry.msg);
         }
     });
     $('#main')
@@ -44,7 +39,6 @@ function renderProfile(data) {
                 .attr('id', 'addFriend')
                 .click(()=>{
                     socket.emit('sendRequest', data.username);
-                    console.log('sending request');
                 }))
             .append($('<button>').text('CHAT')
                 .click(()=>{

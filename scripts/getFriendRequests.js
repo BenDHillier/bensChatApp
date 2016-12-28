@@ -1,20 +1,12 @@
 $('#friendRequests').click(()=>{
-    if($('#requestsList').children().length === 0){
-        console.log('emitting getFriendRequests');
-        socket.emit('getFriendRequests');
-    }
-    else {
+    openList('#requestsList', 'getFriendRequests')
 
-        Array.from($('#requestsList').children()).forEach((child)=>{
-            child.remove();
-        });
-        $('#requestsList').height('0px');
-    }
 });
 
 socket.on('getFriendRequests', (requestsList)=>{
 
     if(requestsList.length !== 0){
+        $('#friendRequests').css('color', 'rgb(80,80,80)');
         console.log('recieved requests');
         let height = requestsList.length>2 ? 150 : requestsList.length * 50;
         $('#requestsList').height(height);

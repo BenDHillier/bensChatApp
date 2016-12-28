@@ -7,7 +7,6 @@ module.exports = (io, socket)=>{
     socket.on('getFriendRequests', ()=>{
 
         accounts.findOne({username: session.user}, (err, account)=>{
-            console.log('recieved getFriendRequests');
             if(account){
                     io.to(socket.id).emit('getFriendRequests', account.friendRequests);
             } else {
@@ -28,9 +27,23 @@ module.exports = (io, socket)=>{
         })
     });
     socket.on('acceptRequest', (sender)=>{
-        console.log('accepting request', sender,session.user);
         friendsController.acceptRequest(session.user, sender, ()=>{
             io.to(socket.id).emit('acceptedRequest', sender)
+        });
+    });
+    socket.on('getNotifications', ()=>{
+        accounts.findOne({username: session.user}, (err,data)=>{
+            if(data){
+                data.newNotifications = false;
+                data.save();
+                io.to(socket.id).emit('recieveNotifications', data.notifications);
+            }
+        })
+    })
+    socket.on('removeNotification', friend=>{
+        accounts.findOne({username: session.user}, (err,data)=>{
+            data.notifications = data.notifications.filter(x=>x!==friend);
+            data.save();
         });
     });
 };

@@ -6,31 +6,23 @@
 *   the sender is the current friend the user is talking with.
 */
 
-
-//var socket = io();
-$('#sendMessage').submit(function(){
-    let msg = $('#m').val();
-    socket.emit('chat message', msg);
-    $('#messages').append($('<li>').text(msg));
-    $('#m').val('');
-    return false;
-});
-
-
 socket.on('chat message', function(data){
     socket.emit('getFriend', data);
 });
 
-socket.on('getFriend', function(data){
-    if(data.friend === data.user) {
-        addFriendMessage(data.msg);
-        $("#messages").scrollTop($("#messages")[0].scrollHeight);
-    } else {
-        //notify user they were sent a message
-        $('#messages').append($('<li>').text(sender + ' sent you a message'));
-    }
+socket.on('isCurrentFriend', function(data){
+    addFriendMessage(data.msg);
+    $("#messages").scrollTop($("#messages")[0].scrollHeight);
+});
+socket.on('notification', (data)=>{
+    console.log('recieved notification');
+    $('#notifications').css('color', 'red');
+});
+socket.on('newRequest', ()=>{
+    $('#friendRequests').css('color', 'red');
 });
 
+//currently not in use
 socket.on('clear', function() {
     Array.from($('#messages').children()).forEach(()=>{
         myChild[i].remove();

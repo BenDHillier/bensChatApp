@@ -1,14 +1,23 @@
 let model = require('../models/models');
 let chatLogs = model.chatLogs;
-let connections = [];
+let accounts = model.accounts;
+let connections = require('./connections')  //[];
 module.exports = function(io, socket){
     let session = socket.handshake.session;
-    addConnection(session.user, socket.id);
+    connections.addConnection(session.user, socket.id);
     socket.on('chat message', function(msg){
         let friend = session.friend;
         let user = session.user;
-        let friendID = getId(friend);
+        let friendID = connections.getId(friend);
         io.to(friendID).emit('chat message', {user,msg});
+        //add user to friends notification list
+        accounts.findOne({username: friend}, (err, data)=>{
+            if(data.notifications.indexOf(user) === -1){
+                data.notifications.push(user);
+                data.newNotifications = true;
+                data.save();
+            }
+        })
         //update chatLog for user and friend
         chatLogs.findOne({user, friend}, function(err, data){
             data.chatLog.push({user, msg});
@@ -25,16 +34,16 @@ module.exports = function(io, socket){
         update(session.user, session.friend, '', true, io);
     });
     socket.on('getFriend', function(data){
-        data.friend = session.friend;
-        console.log('getfriend: ', data)
-        io.to(socket.id).emit('getFriend', data);
+        if(session.friend === data.user)
+            io.to(socket.id).emit('isCurrentFriend', data);
+        else {
+            io.to(socket.id).emit('notification', data)
+        }
     });
     socket.on('openConversation', (friend) =>{
         session.friend = friend;
-        console.log('friend: ',friend);
         chatLogs.findOne({user: session.user, friend}, function(err, data) {
             if(data){
-                console.log('sending data');
                 io.to(socket.id).emit('openConversation', data)
             } else {
                 console.log(friend, 'conversation not found');
@@ -59,24 +68,3 @@ function update(user, friend, msg, clear, io){
         }
     });
 };
-
-function addConnection(user, id){
-    if(user){
-        let result = true;
-        connections.forEach(function(item){
-            if(item.user === user) result = false;
-        })
-        if(result)
-            connections.push({user: user, id: id});
-    }
-}
-
-function getId(user){
-    let id = "";
-    connections.forEach(function(item){
-        if(item.user === user) {
-            id = item.id;
-        }
-    })
-    return id;
-}

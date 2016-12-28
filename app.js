@@ -30,16 +30,17 @@ let loginController = require('./controllers/loginController');
 let signupController = require('./controllers/signupController');
 let searchController = require('./controllers/searchController');
 let friendRequestsController = require('./controllers/friendRequestsController');
-let socketSearch = require('./controllers/socketSearch');
 let test = require('./controllers/test');
 let addFriends = require('./controllers/addFriends.js');
 chatController(io, app);
 loginController(app);
 signupController(app);
-searchController(app, io);
+app.get('*', (req,res)=>{
+    res.redirect('/');
+})
 io.on('connection', function(socket){
     test(io, socket);
-    socketSearch(io, socket);
+    searchController(io, socket);
     friendRequestsController(io, socket);
     addFriends(io, socket);
 });
