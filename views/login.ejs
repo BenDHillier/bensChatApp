@@ -8,13 +8,11 @@
     <p><%= error %></p>
     <form method='POST', action='/login'>
         <p>username</p>
-        <input name='user' type='textfield'/>
+        <input name='username' type='textfield'/>
         <p>password</p>
         <input name='password' type='password'/>
-        <button type='submit'>login</button>
-    </form>
-    <form method='GET', action='/signup'>
-        <button type='submit'>signup</button>
+        <button type='submit' name='login' value='1'>login</button>
+        <button type='submit' name='signup' value='1'>signup</button>
     </form>
 </body>
 </html>
