@@ -29,15 +29,15 @@ let chatController = require('./controllers/chatController');
 let loginController = require('./controllers/loginController');
 let searchController = require('./controllers/searchController');
 let friendRequestsController = require('./controllers/friendRequestsController');
-let test = require('./controllers/test');
+let main = require('./controllers/main');
 let addFriends = require('./controllers/addFriends.js');
-chatController(io, app);
+main(app);
 loginController(app);
 app.get('*', (req,res)=>{
     res.redirect('/');
 })
 io.on('connection', function(socket){
-    test(io, socket);
+    chatController(io, socket);
     searchController(io, socket);
     friendRequestsController(io, socket);
     addFriends(io, socket);
