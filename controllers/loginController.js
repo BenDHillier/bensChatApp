@@ -33,7 +33,7 @@ module.exports = function(app){
                     req.session.user = req.body.username;
                     res.redirect('/');
                 } else {
-                    res.render('signup', {error: 'invalid or taken username'});
+                    res.render('login', {error: 'invalid or taken username'});
                 }
             });
         }

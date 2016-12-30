@@ -27,14 +27,12 @@ app.get('/test', (req,res)=>{
 
 let chatController = require('./controllers/chatController');
 let loginController = require('./controllers/loginController');
-let signupController = require('./controllers/signupController');
 let searchController = require('./controllers/searchController');
 let friendRequestsController = require('./controllers/friendRequestsController');
 let test = require('./controllers/test');
 let addFriends = require('./controllers/addFriends.js');
 chatController(io, app);
 loginController(app);
-signupController(app);
 app.get('*', (req,res)=>{
     res.redirect('/');
 })
