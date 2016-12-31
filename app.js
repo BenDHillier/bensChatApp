@@ -21,16 +21,13 @@ let theSession = expSession({
 app.use(theSession);
 io.use(ios(theSession));
 
-app.get('/test', (req,res)=>{
-    res.render('test');
-})
-
 let chatController = require('./controllers/chatController');
 let loginController = require('./controllers/loginController');
 let searchController = require('./controllers/searchController');
 let friendRequestsController = require('./controllers/friendRequestsController');
 let main = require('./controllers/main');
 let addFriends = require('./controllers/addFriends.js');
+let settingsController = require('./controllers/settingsController');
 main(app);
 loginController(app);
 app.get('*', (req,res)=>{
@@ -41,4 +38,5 @@ io.on('connection', function(socket){
     searchController(io, socket);
     friendRequestsController(io, socket);
     addFriends(io, socket);
+    settingsController(io, socket);
 });

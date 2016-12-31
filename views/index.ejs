@@ -17,21 +17,13 @@
                 <img id='profilePicture'src=<%= picture %>>
                 <h2 id='username'><%= username %></h2>
 
-            <button>ADD</button>
-            <button>CHAT</button>
+            <button id='settings'>SETTINGS</button>
         </div>
 
-<!--
-        <p id='bio'><%= bio %></p>
-    -->
         <div id='bio'>
             <h3>BIO</h3>
             <p>
-                Lorem ipsum dolor sit amet, vis an munere oblique,
-                mel ad tota splendide. Duo cetero corrumpit patrioque
-                no. No voluptua lobortis ius. Sumo melius ea mea, soleat
-                 dissentiunt eam ei. Adhuc civibus id vix. Cu consul
-                 audire vix, eam referrentur instructior ea.
+                <%= bio %>
             </p>
         </div>
 
@@ -40,5 +32,6 @@
     <script src='scripts/index.js'></script>
     <script src='scripts/logout.js'></script>
     <script src='scripts/search.js'></script>
+    <script src='scripts/settings.js'></script>
 </body>
 </html>
