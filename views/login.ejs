@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>login</title>
+    <title>login</title>
+    <link rel="stylesheet" type="text/css" href="styles/login.css">
 </head>
 <body>
     <% if(error) %>
@@ -11,8 +12,11 @@
         <input name='username' type='textfield'/>
         <p>password</p>
         <input name='password' type='password'/>
-        <button type='submit' name='login' value='1'>login</button>
-        <button type='submit' name='signup' value='1'>signup</button>
+        <div id='buttons'>
+            <button type='submit' name='login' value='1'>login</button>
+            <button type='submit' name='signup' value='1'>signup</button>
+        </div>
+
     </form>
 </body>
 </html>
