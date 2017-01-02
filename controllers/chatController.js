@@ -21,17 +21,20 @@ module.exports = function(io, socket){
         //update chatLog for user and friend
         chatLogs.findOne({user, friend}, function(err, data){
             data.chatLog.push({user, msg});
-            chatLogs.update({user, friend}, {chatLog: data.chatLog}, function(err){
-            });
+            data.save();
         });
         chatLogs.findOne({user: friend, friend: user}, function(err, data){
             data.chatLog.push({user, msg});
-            chatLogs.update({user: friend, friend: user}, {chatLog: data.chatLog}, function(err){
-            });
+            data.save();
         });
     });
     socket.on('clear', function(){
-        update(session.user, session.friend, '', true, io);
+        chatLogs.findOne({user:session.user}, function(err, data){
+            if(data){
+                data.chatLogs = [];
+                data.save();
+            }
+        });
     });
     socket.on('getFriend', function(data){
         if(session.friend === data.user)
@@ -53,18 +56,3 @@ module.exports = function(io, socket){
     });
 
 }
-//seems to only be used in socket 'clear'
-//should probably make inline
-function update(user, friend, msg, clear, io){
-    chatLogs.findOne({user}, function(err, data){
-        if(clear){
-            io.emit('clear')
-            chatLogs.update({user, friend}, {chatLog: []}, function(err){
-            });
-        } else {
-            data.chatLog.push(msg);
-            chatLogs.update({user, friend}, {chatLog: data.chatLog}, function(err){
-            });
-        }
-    });
-};
