@@ -14,9 +14,10 @@ module.exports = function(io, socket){
         accounts.findOne({username: friend}, (err, data)=>{
             if(data.notifications.indexOf(user) === -1){
                 data.notifications.push(user);
-                data.newNotifications = true;
-                data.save();
             }
+            data.newNotifications = true;
+            data.save();
+
         })
         //update chatLog for user and friend
         chatLogs.findOne({user, friend}, function(err, data){
