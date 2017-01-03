@@ -3,10 +3,12 @@ $('#settings').click(()=>{
 });
 var r;
 socket.on('getSettings', ()=>{
+    let bio = $('#bio').children('.text').text();
     emptyMain();
     $('#main')
         .append($('<form>')
             .append($('<input>')
+                .val(bio)
                 .attr('id','bio')
                 .attr('type','textfield'))
             .append($('<input>')
