@@ -11,6 +11,7 @@ socket.on('getSettings', (data)=>{
                 .attr('src',data.picture)
                 .attr('id','newPic'))
             .append($('<form>')
+                .attr('id','settingsForm')
                 .append($('<input>')
                     .attr('id','pic')
                     .attr('name','pic')
