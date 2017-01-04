@@ -25,7 +25,8 @@ module.exports = function(app){
             });
         } else if(req.body.signup){
             accounts.findOne({username: req.body.username}, function(err, data){
-                if(!data && req.body.username && req.body.password){
+                if(!data && req.body.username &&
+                    req.body.password && req.body.username.indexOf(' ')==-1){
                     Object.create(accounts({
                         username: req.body.username,
                         password: req.body.password,
@@ -33,7 +34,7 @@ module.exports = function(app){
                     req.session.user = req.body.username;
                     res.redirect('/');
                 } else {
-                    res.render('login', {error: 'invalid or taken username'});
+                    res.render('login', {error: 'Invalid or taken username'});
                 }
             });
         }
