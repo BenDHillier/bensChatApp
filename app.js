@@ -30,6 +30,9 @@ let addFriends = require('./controllers/addFriends.js');
 let settingsController = require('./controllers/settingsController');
 main(app);
 loginController(app);
+app.get('/test', (req,res)=>{
+    res.render('test', {newNotifications:false});
+})
 app.get('*', (req,res)=>{
     res.redirect('/');
 })

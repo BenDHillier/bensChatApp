@@ -3,11 +3,17 @@
     height: 35%;
 }
 
+.profilePic {
+    width: 150px;
+    height: 150px;
+    background-color: red;
+    margin-top:20px;
+    margin-left: 20px;
+}
 
 #topMain img {
     width: 150px;
     height: 150px;
-    background-color: red;
     margin-top:20px;
     margin-left: 20px;
 

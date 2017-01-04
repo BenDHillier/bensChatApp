@@ -1,0 +1,37 @@
+#settingsDiv{
+    align-items: center;
+    height:100%;
+}
+
+#newPic {
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin:0 auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#newBio {
+    width:100%;
+    height:100%;;
+    display:inline-block;
+    padding: 20px;
+    padding-top: 10px;
+    text-align: center;
+    line-height: 150%;
+    font-size: 20px;
+}
+
+#pic{
+    margin: 20px;
+}
+
+form{
+    margin-left: 0;
+    text-align: center;
+    align-items: center;
+    margin: 0 auto;
+    width:50%;
+    height:30%;
+}

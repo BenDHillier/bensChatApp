@@ -19,11 +19,18 @@ module.exports = (io, socket)=>{
     socket.on('Start', (data)=>{
         fs.openSync(path, 'w');
     })
-    socket.on('done', (bio)=>{
-        fs.writeFile(path, imageData, 'binary');
-        profiles.update({username:session.user}, {
-            picture:path,
-            bio
-        }, ()=>0);
+    socket.on('done', (bio, newFile)=>{
+        if(newFile) {
+            fs.writeFile(path, imageData, 'binary');
+            profiles.update({username:session.user}, {
+                picture:path,
+                bio
+            }, ()=>{io.to(socket.id).emit('doneSaving')});
+        } else {
+            profiles.update({username:session.user}, {bio},()=>{
+                io.to(socket.id).emit('doneSaving')
+            });
+        }
+
     })
 };
